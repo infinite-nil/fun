@@ -1,36 +1,39 @@
 import "./style.css";
-
 import * as THREE from "three";
 
-const app = document.querySelector("#app");
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(
-  30,
-  window.innerWidth / window.innerHeight,
-  0.2,
-  100
-);
-const renderer = new THREE.WebGL1Renderer();
-const geometry = new THREE.CylinderGeometry();
-const material = new THREE.MeshBasicMaterial({
-  color: "#FEBE8C",
-  wireframe: true,
-});
-const cylinder = new THREE.Mesh(geometry, material);
+function main() {
+  // Camera
+  const fov = 30;
+  const aspectRatio = window.innerWidth / window.innerHeight;
 
-camera.position.z = 10;
-renderer.setSize(window.innerWidth, window.innerHeight);
-app?.appendChild(renderer.domElement);
-scene.add(cylinder);
+  // Mesh
+  const color = "#FEBE8C";
+  const wireframe = true;
 
-const animate = () => {
-  requestAnimationFrame(animate);
+  const app = document.querySelector("#app");
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(fov, aspectRatio);
+  const renderer = new THREE.WebGL1Renderer();
+  const geometry = new THREE.CylinderGeometry();
+  const material = new THREE.MeshBasicMaterial({ color, wireframe });
+  const cylinder = new THREE.Mesh(geometry, material);
 
-  cylinder.rotation.x += 0.01;
-  cylinder.rotation.y += 0.01;
-  cylinder.rotation.z += 0.01;
+  camera.position.z = 15;
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  scene.add(cylinder);
 
-  renderer.render(scene, camera);
-};
+  const animate = () => {
+    requestAnimationFrame(animate);
 
-animate();
+    cylinder.rotation.x += 0.01;
+    cylinder.rotation.y += 0.01;
+    cylinder.rotation.z += 0.01;
+
+    renderer.render(scene, camera);
+  };
+
+  app?.appendChild(renderer.domElement);
+  animate();
+}
+
+main();
