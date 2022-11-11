@@ -7,7 +7,7 @@ function main() {
   const aspectRatio = window.innerWidth / window.innerHeight;
 
   // Mesh
-  const color = "#FEBE8C";
+  const color = "red";
   const wireframe = true;
 
   const app = document.querySelector("#app");
