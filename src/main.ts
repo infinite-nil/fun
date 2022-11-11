@@ -24,13 +24,13 @@ app?.appendChild(renderer.domElement);
 scene.add(cylinder);
 
 const animate = () => {
+  requestAnimationFrame(animate);
+
   cylinder.rotation.x += 0.01;
   cylinder.rotation.y += 0.01;
   cylinder.rotation.z += 0.01;
 
   renderer.render(scene, camera);
-
-  requestAnimationFrame(animate);
 };
 
 animate();
