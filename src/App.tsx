@@ -6,12 +6,17 @@ import {
 } from "@tanstack/react-router";
 
 import "./App.css";
+import Collision from "./routes/collision";
 import Home from "./routes/home";
 
 const routeConfig = createRouteConfig().createChildren((createRoute) => [
   createRoute({
     path: "/",
     element: <Home />,
+  }),
+  createRoute({
+    path: "collision",
+    element: <Collision />,
   }),
 ]);
 
