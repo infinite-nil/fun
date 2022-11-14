@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 
-function Cylinder(props: any) {
+function Polygon(props: any) {
   const mesh = useRef<THREE.Mesh>(null!);
   const [hovered, setHover] = useState(false);
   const [sides, setSides] = useState(3);
@@ -36,8 +36,8 @@ function Home() {
     <Canvas style={{ width: window.innerWidth, height: window.innerHeight }}>
       <ambientLight />
       <pointLight position={[10, 10, 10]} />
-      <Cylinder position={[-1.2, 0, 0]} />
-      <Cylinder position={[1.2, 0, 0]} />
+      <Polygon position={[-1.2, 0, 0]} />
+      <Polygon position={[1.2, 0, 0]} />
     </Canvas>
   );
 }
