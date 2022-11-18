@@ -68,13 +68,20 @@ const Collision = () => {
 
   function getStartX(position: number) {
     for (const solid of solids) {
-      if (position > solid.y && position < solid.y + solid.rect.h) {
-        return getSquareLimit(solid, position);
-      } else if (
-        position > solid.y - solid.rect.r &&
-        position < solid.y + solid.rect.r
-      ) {
-        return getCircleLimit(solid, position);
+      if (solid.type === "square") {
+        const rect = solid.rect as SquareSolid;
+
+        if (position > solid.y && position < solid.y + rect.h) {
+          return getSquareLimit(solid, position);
+        }
+      }
+
+      if (solid.type === "circle") {
+        const rect = solid.rect as CircleSolid;
+
+        if (position > solid.y - rect.r && position < solid.y + rect.r) {
+          return getCircleLimit(solid, position);
+        }
       }
     }
 
@@ -84,13 +91,17 @@ const Collision = () => {
   function drawBackground(backgroundCanvas: CanvasRenderingContext2D) {
     solids.forEach((solid) => {
       if (solid.type === "square") {
+        const rect = solid.rect as SquareSolid;
+
         backgroundCanvas.fillStyle = "rgb(0,0,200)";
-        backgroundCanvas.fillRect(solid.x, solid.y, solid.rect.w, solid.rect.h);
+        backgroundCanvas.fillRect(solid.x, solid.y, rect.w, rect.h);
       }
 
       if (solid.type === "circle") {
+        const rect = solid.rect as CircleSolid;
+
         backgroundCanvas.fillStyle = "rgb(0,100,200)";
-        backgroundCanvas.arc(solid.x, solid.y, solid.rect.r, 0, 2 * Math.PI);
+        backgroundCanvas.arc(solid.x, solid.y, rect.r, 0, 2 * Math.PI);
         backgroundCanvas.fill();
       }
     });
