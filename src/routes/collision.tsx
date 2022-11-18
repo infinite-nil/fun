@@ -115,7 +115,7 @@ const Collision = () => {
     if (context) {
       document.addEventListener("mousemove", (event) => {
         console.time("draw");
-        draw(context, event.clientY);
+        requestAnimationFrame(() => draw(context, event.clientY));
         console.timeEnd("draw");
       });
     }
