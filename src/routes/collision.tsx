@@ -21,8 +21,6 @@ type Solid<T extends SolidType> = {
 const WIDTH = window.innerWidth;
 const HEIGHT = window.innerHeight;
 const OFFSET = 120;
-const INITIAL = (HEIGHT - OFFSET) / 2 - 1;
-const FPS_60 = 1000 / 60;
 
 const solids: Solid<any>[] = [
   {
@@ -53,7 +51,6 @@ const solids: Solid<any>[] = [
 ];
 
 const Collision = () => {
-  const position = useRef(INITIAL);
   const backgroundCanvas = useRef<HTMLCanvasElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
 
@@ -99,7 +96,7 @@ const Collision = () => {
     });
   }
 
-  function draw(canvas: CanvasRenderingContext2D, y: number = INITIAL) {
+  function draw(canvas: CanvasRenderingContext2D, y: number) {
     canvas.clearRect(0, 0, WIDTH, HEIGHT);
 
     const position = y - OFFSET / 2;
@@ -117,14 +114,10 @@ const Collision = () => {
 
     if (context) {
       document.addEventListener("mousemove", (event) => {
-        position.current = event.clientY;
-      });
-
-      setInterval(() => {
         console.time("draw");
-        draw(context, position.current);
+        draw(context, event.clientY);
         console.timeEnd("draw");
-      }, FPS_60);
+      });
     }
   }, [canvas.current]);
 
